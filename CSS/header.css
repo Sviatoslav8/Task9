@@ -1,0 +1,26 @@
+.header-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    border: 1px solid black;
+    background-color: brown;
+}
+
+.title-header{
+    color:antiquewhite;
+    margin-left: 15px;
+}
+
+.create-product-btn-header{
+    border-radius: 15px;
+    width: 120px;
+    height: 35px;
+    background-color:aquamarine;
+    color: green;
+    border:none;
+    margin-top: 12px;
+    margin-right: 15px;
+    font-size: 14px;
+    font-weight: 600;
+}
