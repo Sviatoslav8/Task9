@@ -1,75 +1,4 @@
-//Task 1
-// class Button{
-//     constructor(text,border,color,backgorund){
-//         this.text = text,
-//         this.border = border,
-//         this.color = color,
-//         this.backgorund = backgorund
-//     }
-
-//     render(){
-//         const containerBtn = document.querySelector(".container-btn");
-//         const button = document.createElement("button");
-//         button.textContent = this.text;
-//         button.style.border = this.border;
-//         button.style.color = this.color;
-//         button.style.backgroundColor = this.backgorund;
-//         button.classList.add("buttons");
-//         containerBtn.append(button);
-//         button.addEventListener("click",()=>{
-//             console.log(`Button ${this.text} pressed. Color button - ${this.backgorund}`);
-//         })
-//     }
-// }
-
-// const arrBtn = [
-//     new Button("Click me", "1px solid red","aqua","green"),
-//     new Button("Click", "2px solid green", "white","blue"),
-//     new Button("Press...", "2px solid orange", "blue","brown"),
-// ]
-
-// arrBtn.forEach(btn =>{
-//     btn.render();
-// })
-
-// class RoundedButton extends Button{
-//     constructor(text,border,color,backgorund,borderRadius){
-//         super(text,border,color,backgorund);
-//         this.borderRadius = borderRadius;
-//     }
-//     dropShadow(){
-//         const containerBtn = document.querySelector(".container-btn");
-//         const button = document.createElement("button");
-//         button.textContent = this.text;
-//         button.style.border = this.border;
-//         button.style.color = this.color;
-//         button.style.backgroundColor = this.backgorund;
-//         button.classList.add("buttons");
-//         containerBtn.append(button);
-//         button.addEventListener("click",()=>{
-//             console.log(`Button ${this.text} pressed. Color button - ${this.backgorund}`);
-//         })
-//         button.style.borderRadius = this.borderRadius;
-//         button.addEventListener("mouseover",()=>{
-//             button.style.boxShadow = `4px 4px 4px gray`;
-//         })
-//         button.addEventListener("mouseleave",()=>{
-//             button.style.boxShadow = `none`;
-//         })
-//     }
-// }
-
-// const arrRoundedBtn = [
-//     new RoundedButton("Click sviat", "1px solid red","aqua","green","10px"),
-//     new RoundedButton("Click here", "1px solid blue","black","yellow","20px"),
-//     new RoundedButton("Press here", "2px solid black","maroon","aqua","15px")
-// ]
-
-// arrRoundedBtn.forEach(btn =>{
-//     btn.dropShadow();
-// })
-
-// Task 2
+// Task 3(js 10)
 
 const products = [];
 
@@ -82,10 +11,11 @@ class Model{
         this.container = document.querySelector(".container");
         this.arr = arr;
         this.initialize(arr);
+        this.initializeValidation();
     }
 
     initialize(arr){
-        this.saveBtn.addEventListener("click",()=>this.validation(arr))
+        this.saveBtn.addEventListener("click",(e)=>this.validation(e,arr))
         this.closeSectionBtn.addEventListener("click",()=>this.close());
         this.section.addEventListener("click",(e)=>{
             if(e.target == this.container||e.target == this.header){
@@ -94,23 +24,75 @@ class Model{
         });
     }
 
-    isHttpOrHttps(link){
-        if(link.includes("http://")||link.includes("https://")){
-            return true;
-        }
-        return false;
+    initializeValidation(){
+        const fields = document.querySelectorAll("input");
+
+        fields.forEach(field =>{
+            field.addEventListener("input", ()=> this.customValidity(field));
+            field.addEventListener("blur", ()=> this.customValidity(field));
+        })
     }
 
-    isDigit(number){
-        if(!(isNaN(number))){
-            if(number > 0){
-                return true;
+    customValidity(field){
+        field.setCustomValidity("");
+
+        const value = field.value;
+        if(field.id === "name"){
+            if(/^\d/.test(value)){
+                field.setCustomValidity("Ім'я має починатися з букви");
             }
         }
-        return false;
+
+        if(field.id === "price"){
+            if(value < 1){
+                field.setCustomValidity("Ціна не може бути 0 і менше");
+            }
+        }
+
+        if(field.id ==="brand"){
+            if(/^\s|\d/.test(value)){
+                field.setCustomValidity("Бренд має починатися з букви");
+            }
+        }
+        if(field.id === "link"){
+            if(!(/^https?:\/\//).test(value)){
+                field.setCustomValidity("Не правильне посилання");
+            }
+        }
+        if(field.id === "size"){
+            if(/^\d|\s/.test(value)){
+                field.setCustomValidity("Розмір лише з букви");
+            }
+        }
+
+        const span = field.parentElement.querySelector(".error-message");
+        if(!field.checkValidity()){
+            span.textContent = this.errorMessage(field);
+        }
+        else{
+            span.textContent = "";
+        }
+        return field.checkValidity();
     }
 
-    validation(arr){
+    errorMessage(field){
+        const validity = field.validity;
+        if(validity.valueMissing)
+            return "Поле потрібно заповнити";
+        if(validity.tooShort)
+            return `Мінімальна довжина - ${field.minLength} символів`;
+        if(validity.rangeUnderflow)
+            return `Мінімальне значення - ${field.min}`;
+        return "Не коректно заповнене поле";
+    }
+
+    validation(e,arr){
+        e.preventDefault();
+        if (!this.form.checkValidity()) {
+            const fields = this.form.querySelectorAll("input");
+            fields.forEach(field => this.customValidity(field));
+            return;
+        }
         const product = {
             name: document.getElementById("name").value,
             price: document.getElementById("price").value,
@@ -119,19 +101,9 @@ class Model{
             brand: document.getElementById("brand").value,
             link: document.getElementById("link").value,
         }
-        let isTrue = true;
-        for(let i in product){
-            if(product[i] === "" || !(this.isDigit(product.size)) || !(this.isDigit(product.price)) || !(this.isHttpOrHttps(product.link))){
-                isTrue = false;
-                alert("error");
-                break;
-            }
-        }
-        if(isTrue == true){
-            arr.push(product);
-            console.log(arr);
-            this.close();
-        }
+        arr.push(product);
+        this.form.reset();
+        this.close();
         
     }
 

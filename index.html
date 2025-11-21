@@ -24,11 +24,13 @@
                     <form class="flex-form">
                         <div class="item">
                             <label class="title" for="name">Name:</label>
-                            <input type="text" id="name">
+                            <input type="text" id="name" minlength="3" placeholder="Введіть ім'я" maxlength="30" pattern="^[a-zA-Zа-яА-ЯїєійґЇІЙЄ]+$" required>
+                            <span class="error-message"></span>
                         </div>
                         <div class="item">
                             <label class="title" for="price">Price:</label>
-                            <input type="text" id="price">
+                            <input type="number" id="price" placeholder="Зазначте ціну" min="1" max="100000" required>
+                            <span class="error-message"></span>
                         </div>
                         <div class="item-category">
                             <label class="title" for="select-category">Category:</label>
@@ -41,15 +43,18 @@
                         </div>
                         <div class="item">
                             <label class="title" for="size">Size:</label>
-                            <input type="text" id="size">
+                            <input type="text" id="size" placeholder="Зазначте розмір" minlength="1" maxlength="3" pattern="^[A-Z]+$" required>
+                            <span class="error-message"></span>
                         </div>
                         <div class="item">
                             <label class="title" for="brand">Brand:</label>
-                            <input type="text" id="brand">
+                            <input type="text" id="brand" minlength="3" placeholder="Напишіть бренд" maxlength="30" required>
+                            <span class="error-message"></span>
                         </div>
                         <div class="item">
                             <label class="title" for="link">Link to picture:</label>
-                            <input type="text" id="link">
+                            <input type="link" id="link" placeholder="Вставте посилання на картинку" required>
+                            <span class="error-message"></span>
                         </div>
                     </form>
                     <div class="item-btn">
@@ -62,10 +67,6 @@
         </section>
         
     </main>
-    <!-- Task 1 ------------------------------------------------------------------- -->
-    <!-- <div class="container-btn">
-
-    </div> -->
     <script src="./js/main.js"></script>
 </body>
 </html>
