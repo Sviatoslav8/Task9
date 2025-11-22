@@ -1,15 +1,3 @@
-/* Task 1  -------------------*/
-
-/* .buttons{
-    width: 100px;
-    height: 40px;
-    margin-right: 15px;
-}
-
-.button-shadow {
-    box-shadow: 4px;
-} */
-/* --------------------------- */
 #container{
     width: 100%;
     height: 880px;
@@ -31,7 +19,7 @@
     width: 400px;
     height: 510px;
     border: none;
-    background-color: aqua;
+    background-color: antiquewhite;
     border-radius: 15px;
     box-shadow: 4px 4px 4px gray;
 }
@@ -42,22 +30,35 @@
     justify-content: center;
     align-items: center;
     height: 55px;
-    background-color: cadetblue;
+    background-color: burlywood;
+}
+
+input:valid{
+    border-color: greenyellow;
+}
+
+input:invalid:not(:placeholder-shown){
+    border-color: brown;
 }
 
 .title-card{
-    color:darkblue;
+    color:lightyellow;
 }
-
+.flex-form{
+    margin-top: 30px;
+    margin-left: 20px
+}
 .item,
 .item-category{
     margin-top: 15px;
     padding-left: 5px;
-    height: 50px;
+    height: 45px;
+    flex-direction: column;
+    display: flex;
 }
 
 .item-category select{
-    width: 200px;
+    width: 90%;
     height: 25px;
     border-radius: 15px;
 }
@@ -68,7 +69,7 @@
 }
 input{
     height: 18px;
-    width: 65%;
+    width: 90%;
     border: 1px solid gray;
     border-radius: 5px;
 }
@@ -80,10 +81,11 @@ input{
     height: 33px;
     color:antiquewhite;
     font-size: 14px;
-    background-color: blueviolet;
+    background-color:darkkhaki;
 }
 
 .item-btn{
+    margin-top: 25px;
     display: flex;
     justify-content: space-around;
 }
@@ -98,5 +100,12 @@ input{
     height: 33px;
     color:antiquewhite;
     font-size: 14px;
-    background-color:brown;
+    background-color:coral;
+}
+
+.error-message{
+    margin-top: 2px;
+    color: brown;
+    line-height: 12px;
+    display: block;
 }
