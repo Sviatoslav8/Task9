@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+// Task 3(js 10)
+
+const products = [];
+
+>>>>>>> 8ed6f4db1cdd65b4e89466ecddd6e39afb091681
 class Model{
     constructor(arrProduct){
         this.section = document.querySelector(".section-create");
@@ -5,6 +12,7 @@ class Model{
         this.saveBtn = document.querySelector(".create-btn");
         this.form = document.querySelector(".flex-form");
         this.container = document.querySelector(".container");
+<<<<<<< HEAD
         this.arr = arrProduct;
         this.initialize();
         this.initializeValidation();
@@ -12,6 +20,15 @@ class Model{
 
     initialize(){
         this.saveBtn.addEventListener("click",(e)=>this.validation(e))
+=======
+        this.arr = arr;
+        this.initialize(arr);
+        this.initializeValidation();
+    }
+
+    initialize(arr){
+        this.saveBtn.addEventListener("click",(e)=>this.validation(e,arr))
+>>>>>>> 8ed6f4db1cdd65b4e89466ecddd6e39afb091681
         this.closeSectionBtn.addEventListener("click",()=>this.close());
         this.section.addEventListener("click",(e)=>{
             if(e.target == this.container){
@@ -82,7 +99,11 @@ class Model{
         return "Не коректно заповнене поле";
     }
 
+<<<<<<< HEAD
     validation(e){
+=======
+    validation(e,arr){
+>>>>>>> 8ed6f4db1cdd65b4e89466ecddd6e39afb091681
         e.preventDefault();
         if (!this.form.checkValidity()) {
             const fields = this.form.querySelectorAll("input");
@@ -96,10 +117,18 @@ class Model{
             size: document.getElementById("size").value,
             brand: document.getElementById("brand").value,
             link: document.getElementById("link").value,
+<<<<<<< HEAD
         };
         this.arr.push(product);
         localStorage.setItem("products",JSON.stringify(this.arr));
         this.close();
+=======
+        }
+        arr.push(product);
+        this.form.reset();
+        this.close();
+        
+>>>>>>> 8ed6f4db1cdd65b4e89466ecddd6e39afb091681
     }
 
     open(){ 
